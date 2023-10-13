@@ -1,0 +1,58 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: monospace;
+}
+
+#board, .board-info{
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#board{
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+}
+
+#start, .board-info{
+    font-size: 25px;
+    padding: 5px;
+}
+
+#game-over{
+    font-size:35px ;
+    color:red;
+    background-color: rgb(255, 140, 140);
+    width: 200px;
+    text-align: center;
+    border-radius: 20px;
+    display: none;
+}
+
+.board-info{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(234, 234, 234);
+    margin-top: 10px;
+
+}
+
+#score-board{
+    display: inline-flex;
+}
+
+.square{
+    aspect-ratio: 1; /*da aspecto cuadrado*/
+}
+
+.empty-square{
+background-color: blue;
+}
+
+.snake-square{
+background-color: green;
+}
+
+.food-square{
+background-color: red;
+}
