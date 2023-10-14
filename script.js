@@ -7,7 +7,7 @@ const gameOver=document.getElementById('game-over'); //notificacion de fin
 //configuraciones del juego
 const boardSize=10; //tamanio del tablero
 const gameSpeed=100;//velocidad, milisegundos
-const squeareTypes={
+const squareTypes={
     emptySquare:0,
     snakeSquare:1,
     foodSquare:2
@@ -23,6 +23,22 @@ const directions={
 let snake; //guarda cambios en la serpiente.
 let score; //guarda puntos.
 let direction; //guarda direccion para donde va serpiente.
-let boardSquares; //guarda array con info del tablero.
+let boardSquares; //estructura de datos donde guardamos la info del tablero.
 let emptySquares; //necesitamos generar comida en lugares aleatorios, para eso hay que saber por consecuencia donde estan los lugares vacios.
 let moveInterval; //guarda intervalo para mover serpiente.
+
+
+const setGame=()=>{
+    snake=['00','01','02','03']; //serpiente, array 1: 0 en todos, array 2: 0,1,2,3.
+    score=snake.length; //igual al largo de la serpiente, va subiendo cuando avanza esta misma.
+    direction="arrowRight"; //para la derecha de a uno.
+    boardSquares= Array.from(Array(boardSize)),
+    ()=>new Array(boardSize).fill(squareTypes.emptySquare)
+}
+
+const startGame=()=>{
+    setGame(); //damos valores iniciales para que arranque
+
+}
+
+startButton.addEventListener('click', startGame);
