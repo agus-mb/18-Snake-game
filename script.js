@@ -27,6 +27,11 @@ let boardSquares; //estructura de datos donde guardamos la info del tablero.
 let emptySquares; //necesitamos generar comida en lugares aleatorios, para eso hay que saber por consecuencia donde estan los lugares vacios.
 let moveInterval; //guarda intervalo para mover serpiente.
 
+
+const drawSnake=()=>{
+    snake.forEach(square=>drawSquare(square,'snake-square'));
+}
+
 //square:posicion del cuadrado, type:tipo de cuadrado(empty,snake,food).
 const drawSquare=(square, type)=>{//funcion madre para dibujar q cuadradito.
     const [row, column]= square.split(''); //desmenuzar las coordenadas.
