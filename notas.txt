@@ -1,0 +1,1 @@
+1- Tener en cuenta, las variables de uso global se declaran por fuera del lugar de uso, pero siempre antes de la funcion/variable donde la necesitamos.
