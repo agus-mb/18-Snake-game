@@ -1,1 +1,3 @@
 1- Tener en cuenta, las variables de uso global se declaran por fuera del lugar de uso, pero siempre antes de la funcion/variable donde la necesitamos.
+
+2-Los eventos keydown y keyup proporcionan un código que indica qué tecla se presiona, mientras que keypress indica qué carácter se ingresó. Por ejemplo, una "a" minúscula será reportada como 65 por keydown y keyup, pero como 97 por keypress. Todos los eventos notifican una "A" mayúscula como 65.
