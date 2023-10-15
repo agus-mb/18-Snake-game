@@ -27,29 +27,36 @@ let boardSquares; //estructura de datos donde guardamos la info del tablero.
 let emptySquares; //necesitamos generar comida en lugares aleatorios, para eso hay que saber por consecuencia donde estan los lugares vacios.
 let moveInterval; //guarda intervalo para mover serpiente.
 
-
-const drawSnake=()=>{
-    snake.forEach(square=>drawSquare(square,'snake-square'));
-}
+const drawSnake = () => {
+  snake.forEach((square) => drawSquare(square, "snake-square"));
+};
 
 //square:posicion del cuadrado, type:tipo de cuadrado(empty,snake,food).
-const drawSquare=(square, type)=>{//funcion madre para dibujar q cuadradito.
-    const [row, column]= square.split(''); //desmenuzar las coordenadas.
-    boardSquares[row][column]=squareTypes[type];//vamos a la info del tablero, tomamos las coordenadas y la funcion le pasara a ese square su tipo.
-    const squareElement =document.getElementById(square);//el id son las coordenadas, nos sirve para guardan cual cuadrados estamos seleccionando
-    squareElement.setAttribute('class',`square ${type}`);//le agrega la clase que le corresponde segun type.
+const drawSquare = (square, type) => {
+  //funcion madre para dibujar q cuadradito.
+  const [row, column] = square.split(""); //desmenuzar las coordenadas.
+  boardSquares[row][column] = squareTypes[type]; //vamos a la info del tablero, tomamos las coordenadas y la funcion le pasara a ese square su tipo.
+  const squareElement = document.getElementById(square); //el id son las coordenadas, nos sirve para guardan cual cuadrados estamos seleccionando
+  squareElement.setAttribute("class", `square ${type}`); //le agrega la clase que le corresponde segun type.
 
-    if(type==='empty-square'){
-        emptySquares.push(square);//si tiene la clase emptysquare que se creen uno vacio
-    }else{
-        if(emptySquares.indexOf(square !==-1)){
-            emptySquares.splice(emptySquares.indexOf(square),1)
-            //saca del conteo de cuadrados vacios, tiene algo.
+  if (type === "empty-square") {
+    emptySquares.push(square); //si tiene la clase emptysquare que se creen uno vacio
+  } else {
+    if (emptySquares.indexOf(square !== -1)) {
+      emptySquares.splice(emptySquares.indexOf(square), 1);
+      //saca del conteo de cuadrados vacios, tiene algo.
     }
+  }
+};
+
+const createRandomFood=()=>{
+    const randomEmptySquare=emptySquares[Math.floor(Math.random()*emptySquares.length)];//crea una coordenada random entre arrays.
+    drawSquare(randomEmptySquare,"foodSquare");//le asigna el type de square
 }
 
+const updateScore=()=>{
+    scoreBoard.innerHTML=score;
 }
-
 
 const createBoard = () => {
   boardSquares.forEach((row, rowIndex) => {
@@ -77,13 +84,13 @@ const setGame = () => {
   createBoard();
 };
 
-
-
 const startGame = () => {
   setGame(); //damos valores iniciales para que arranque
-  gameOver.style.display="none";//ocultamos por las dudas aca tambien
-  startButton.disabled=true;//mientras se juega estara bloqueado.
-  drawSnake();//dibujar serpiente.
+  gameOver.style.display = "none"; //ocultamos por las dudas aca tambien
+  startButton.disabled = true; //mientras se juega estara bloqueado.
+  drawSnake(); //dibujar serpiente.
+  updateScore();//sirve para actualizar puntos 
+  createRandomFood();
 };
 
 startButton.addEventListener("click", startGame);
