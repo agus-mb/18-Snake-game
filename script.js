@@ -49,9 +49,44 @@ const drawSquare = (square, type) => {
   }
 };
 
+const moveSnake=()=>{
+    const newSquare= String(
+        Number(snake[snake.length-1])+directions[direction]).//toma el ultimo cuadrado de la snake y a ella le hace una suma (+) la info de la direccion (1, -1, 10 etc). Ej: 02+1= 03, ES DECIR SE MOVIO A LA DERECHA UN CUADRADO
+        padStart(2,'0');//como aca especificamos asi arrowRight: 1, arrowLeft: -1,debemos agregarle el 0 al inicio y que se formen las coordenadas.
+
+}
+
+const itsGameOver=()=>{
+    gameOver.style.display='block';
+    clearInterval(moveInterval);//limpiamos para que la serpiente se deje de mover.
+    startButton.disabled=false;
+}
+
+const setDirection=newDirection =>{
+    direction=newDirection;//va recibiendo las nuevas direcciones, a medida que el usuario va tocando
+}
+
+const directionEvent=key=>{ //recibe la tecla que tocamos.
+    switch(key.code){//tecla pulsada
+        case 'arrowUp':
+            direction!= "arrowDown"&&setDirection(key.code)
+            break
+        case 'arrowDown':
+            direction != 'arrowUp'&&setDirection(key.code)
+            break
+        case 'arrowLeft':
+            direction != 'arrowRight'&&setDirection(key.code)
+            break
+        case 'arrowRight':
+            direction != 'arrowLeft'&&setDirection(key.code)
+            break
+    }//la serpiente no debe volver sobre sus pasos, por eso se bloquea el opuesto de la tecla. Para volver para atras por ej, debe  ir para la derecha o izquierda y de alli subir.
+
+}
+
 const createRandomFood=()=>{
     const randomEmptySquare=emptySquares[Math.floor(Math.random()*emptySquares.length)];//crea una coordenada random entre arrays.
-    drawSquare(randomEmptySquare,"foodSquare");//le asigna el type de square
+    drawSquare(randomEmptySquare,"food-square");//le asigna el type de square
 }
 
 const updateScore=()=>{
@@ -91,6 +126,10 @@ const startGame = () => {
   drawSnake(); //dibujar serpiente.
   updateScore();//sirve para actualizar puntos 
   createRandomFood();
+  document.addEventListener('keydown',directionEvent);//Los eventos keydown y keyup proporcionan un código que indica qué tecla se presiona.
+  moveInterval=setInterval( ()=>moveSnake(),gameSpeed);
 };
+
+
 
 startButton.addEventListener("click", startGame);
