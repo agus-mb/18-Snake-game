@@ -45,15 +45,15 @@
     aspect-ratio: 1; /*da aspecto cuadrado*/
 }
 
-.empty-square{
+.emptySquare{
 background-color: blue;
 border: 1px solid rgb(0, 0, 137);
 }
 
-.snake-square{
+.snakeSquare{
 background-color: green;
 }
 
-.food-square{
+.foodSquare{
 background-color: red;
 }
