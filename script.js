@@ -53,7 +53,40 @@ const moveSnake=()=>{
     const newSquare= String(
         Number(snake[snake.length-1])+directions[direction]).//toma el ultimo cuadrado de la snake y a ella le hace una suma (+) la info de la direccion (1, -1, 10 etc). Ej: 02+1= 03, ES DECIR SE MOVIO A LA DERECHA UN CUADRADO
         padStart(2,'0');//como aca especificamos asi arrowRight: 1, arrowLeft: -1,debemos agregarle el 0 al inicio y que se formen las coordenadas.
+        const [row, column]=newSquare.split('');
 
+
+        if(newSquare<0||//se ubica en un cuadrado menor que el valor 0, es imposible.
+          newSquare>boardSize*boardSize||//se ubica en un cuadrado mas grande que las ultimas coorenadas (9,9) las cuales son el tamanio total.
+          (direction==='arrowRight'&&column==0)||
+          (direction==='arrowLeft'&&column==9||
+          boardSquares[row][column]===squareTypes.snakeSquare)//si se toca a si misma
+          ){
+            itsGameOver()
+            
+          }else{
+            snake.push(newSquare);//sino crea nuevo cuadrado de caminito
+            if(boardSquares[row][column]===squareTypes.foodSquare){
+                addFood();//funcion que subira los puntos, el score
+
+            }else{
+                snake.push(newSquare);
+               if(boardSquares[row][column] === squareTypes.foodSquare) {
+                addFood();
+              } else {
+                const emptySquare=snake.shift();//le sacamos el primer cuadrado a la serpinte;
+                drawSquare(emptySquare,'empty-square');//avisamos que ahora ese lugar es uno vacio, no mas ocupado
+            }
+            drawSnake();//que vuelva a dibujarse en el board
+
+          }
+        }
+}
+
+const addFood=()=>{
+    score++;
+    updateScore();
+    createRandomFood();
 }
 
 const itsGameOver=()=>{
@@ -108,7 +141,7 @@ const createBoard = () => {
 };
 
 const setGame = () => {
-  snake = ["00", "01", "02", "03"]; //serpiente, array 1: 0 en todos, array 2: 0,1,2,3.
+  snake = ["00", "01", "02", "03"]; //serpiente, array 1: row en todos, array 2: column
   score = snake.length; //igual al largo de la serpiente, va subiendo cuando avanza esta misma.
   direction = "arrowRight"; //para la derecha de a uno.
   boardSquares = Array.from(Array(boardSize), () =>
